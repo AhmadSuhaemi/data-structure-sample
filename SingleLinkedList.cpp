@@ -5,11 +5,11 @@
 struct human{
 	int age;
 	char name[30];
-	human *next;
+	struct human *next;
 }*head, *tail, *current;
 
 void pushTail(int age, char name[]){
-	current = (human*)malloc(sizeof(struct human));
+	current = (struct human *)malloc(sizeof(struct human));
 	current->age = age;
 	strcpy(current->name, name);
 
@@ -24,7 +24,7 @@ void pushTail(int age, char name[]){
 }
 
 void pushHead(int age, char name[]){
-	current = (human*)malloc(sizeof(struct human));
+	current = (struct human *)malloc(sizeof(struct human));
 	current->age = age;
 	strcpy(current->name, name);
 
@@ -38,7 +38,7 @@ void pushHead(int age, char name[]){
 }
 
 void pushMid(int age, char name[]){
-	current = (human*)malloc(sizeof(struct human));
+	current = (struct human *)malloc(sizeof(struct human));
 	current->age = age;
 	strcpy(current->name, name);
 
@@ -52,7 +52,7 @@ void pushMid(int age, char name[]){
 		pushTail(age, name);
 	}
 	else{
-		human *temp = head;
+		struct human *temp = head;
 		while(temp->next->age < current->age){
 			temp = temp->next;
 		}
@@ -81,7 +81,7 @@ void popTail(){
 		head=tail=NULL;
 		free(current);
 	}else{
-		human *temp=head;
+		struct human *temp=head;
 		while(temp->next!=tail){
 			temp=temp->next;
 		}
@@ -101,7 +101,7 @@ void popMid(int age){
 	}else if(tail->age==age){
 		popTail();
 	}else{
-		human *temp=head;
+		struct human *temp=head;
 		while(temp->next->age!=age && temp!=tail){
 			temp=temp->next;
 		}
