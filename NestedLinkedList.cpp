@@ -6,14 +6,14 @@ int classNumber=1;
 
 struct student{
 	char studentname[100];
-	student *studentNext, *studentPrev;
+	struct student *studentNext, *studentPrev;
 };
 
 struct classroom{
 	char className[100];
 	int classNumber;
-	classroom *classroomNext, *classroomPrev;
-	student *studentHead, *studentTail, *studentCurr;
+	struct classroom *classroomNext, *classroomPrev;
+	struct student *studentHead, *studentTail, *studentCurr;
 }*classroomHead, *classroomTail, *classroomCurr;
 
 void printData(){
@@ -30,7 +30,7 @@ void printData(){
 }
 
 void pushClassRoom(char classroomname[]){
-	classroomCurr = (classroom *)malloc(sizeof(classroom));
+	classroomCurr = (struct classroom *)malloc(sizeof(struct classroom));
 	strcpy(classroomCurr->className, classroomname);
 	classroomCurr->classNumber = classNumber; classNumber++;
 	classroomCurr->classroomNext = classroomCurr->classroomPrev = NULL;
@@ -53,7 +53,7 @@ void pushStudent(int targetClassNumber, char studentName[]){
 		classroomCurr=classroomCurr->classroomNext;
 	}
 	if(found==1){
-		classroomCurr->studentCurr = (student*)malloc(sizeof(student));
+		classroomCurr->studentCurr = (struct student *)malloc(sizeof(struct student));
 		strcpy(classroomCurr->studentCurr->studentname, studentName);
 
 		classroomCurr->studentCurr->studentNext = classroomCurr->studentCurr->studentPrev = NULL;
@@ -72,8 +72,8 @@ void pushStudent(int targetClassNumber, char studentName[]){
 
 void deleteClassRoom(int targetClassNumber){
 	int found=-1;
-	student *tempStudent;
-	classroom *tempClass;
+	struct student *tempStudent;
+	struct classroom *tempClass;
 	classroomCurr = classroomHead;
 	while(classroomCurr!=NULL){
 		if(classroomCurr->classNumber == targetClassNumber){ found=1; break; }
@@ -111,7 +111,7 @@ void deleteClassRoom(int targetClassNumber){
 void deleteStudent(int targetClassNumber, char studentName[]){
 	int foundClass=-1;
 	int foundStudent=-1;
-	student *tempStudent;
+	struct student *tempStudent;
 
 	classroomCurr = classroomHead;
 	while(classroomCurr!=NULL){
